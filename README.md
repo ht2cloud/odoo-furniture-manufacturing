@@ -1,23 +1,23 @@
-# 📚 DEMO IMPLANTACIÓN ODOO EMPRESA DE MUEBLES
+# 📚 ODOO FURNITURE MANUFACTURING COMPANY DEMO
 
-Repositorio creado por **Josep Cortés Mañanich**, con el objetivo de realizar una practica de implantación del ERP Odoo en un ejemplo real.
+Repository created by **Josep Cortés Mañanich**, with the goal of performing a practical implementation of the Odoo ERP in a real example.
 
 ---
 
-## 🎯 Objetivo  
+## 🎯 Objective  
 
-Simular la implantación de un ERP (Odoo) en una empresa del sector del mueble, reproduciendo el flujo completo de negocio:
+Simulate the implementation of an ERP (Odoo) in a furniture sector company, reproducing the complete business flow:
 
-Compras → El ERP detecta necesidades de materiales, genera órdenes de compra y actualiza el inventario al recibirlos.
+Purchases → The ERP detects material needs, generates purchase orders and updates inventory upon receiving them.
 
-Ventas → Se registran pedidos de clientes; si no hay stock suficiente, el ERP crea automáticamente órdenes de fabricación.
+Sales → Customer orders are registered; if there is insufficient stock, the ERP automatically creates manufacturing orders.
 
-Órdenes de fabricación (MO) → Se producen muebles según su BOM, consumiendo materias primas y aumentando el stock de productos terminados.
+Manufacturing Orders (MO) → Furniture is produced according to its BOM, consuming raw materials and increasing finished product stock.
 
-Reabastecimiento (MRP) → El sistema analiza stock, pedidos y niveles mínimos para proponer compras o fabricación y evitar roturas de stock.
+Replenishment (MRP) → The system analyzes stock, orders and minimum levels to propose purchases or manufacturing to avoid stock-outs.
 
-Entrega al cliente → Se despachan los productos, se genera la factura y el ERP actualiza contabilidad e inventario.
+Customer delivery → Products are dispatched, invoices are generated and the ERP updates accounting and inventory.
 
-## INformación.
+## Information
 
-Este repositorio es claramente para establecer una guia en un ejemplo real.
+This repository is clearly intended to establish a guide with a real example.

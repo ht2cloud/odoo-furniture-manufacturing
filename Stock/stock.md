@@ -1,110 +1,111 @@
-# STOCK.
+# STOCK
 
-## ALMACENES.
+## WAREHOUSES
 
-Antes de dedicarnos a crear stock, la parte primordial es crear los almacenes. Para poder estructurar mucho mejor la integración de este modulo. Vamos a configurar desde el almacén -> ubicaciones -> categoria de producto -> producto.
+Before dedicating ourselves to creating stock, the essential part is to create the warehouses. To be able to structure the integration of this module much better. We are going to configure from warehouse -> locations -> product category -> product.
 
-En la parte de inventario vamos a configuracion Ajustes -> Almacenes y una vez que estamos allí procederemos a crear nuestros 4 Almacenes.
-![Captura paso 1](images/Almacen-create.png).
+In the inventory part we go to Settings configuration -> Warehouses and once we are there we will proceed to create our 4 Warehouses.
+![Screenshot step 1](images/Almacen-create.png).
 
-En la creacion de almacenes es importante distinguir las necesidades y las capacidades de la empresa donde implantemos Odoo. En este ejemplo yo he considerado que tendra 1 Almacenes.
+In warehouse creation, it is important to distinguish the needs and capabilities of the company where we implement Odoo. In this example, I have considered that it will have 1 Warehouse.
 
--Materias Primas.
+- Raw Materials.
 
+This is important because you have to associate how it will be replenished whether in purchase, manufacturing or rather with transfers between centers. 
+Therefore, depending on what type of warehouse, it will do it one way or another. Example: The raw materials one, as it is composed of raw materials basically it will be through purchases. On the other hand, the Production one will be through manufacturing. And the shipping one through transfers from Central.
 
-Esto es importante porque hay de asociar como se va a rebastecer si en compra, fabricacion o más bien con traslados entre centros. 
-Por lo tanto depende que tipo de almacén lo hara de una forma u otra. Ejemplo: El de materias primas, como esta compuesto de materias primas basicamente será mediante compras. Por otro lado el de Producción será mediante fabricación. Y el de expediciones mediante traslados del Central.
-
-![Captura paso 1](images/Almacen-List.png).
+![Screenshot step 1](images/Almacen-List.png).
 
 ## UBICACIONES.
 
+## LOCATIONS
+
 Una vez comprobamos que nuestros almacenes estan creados correctamente. Vamos a por la otra parte importante, las ubicaciones internas que tiene cada almacén. 
 
-Para entender un poco el procedimiento he dividio mis almacenes de la siguiente manera.
+To understand the procedure a bit, I have divided my warehouses as follows:
 
 
-**-MueblesCOrtes -- CENTRAL.(WH01)**
+**-FurnitureCortes -- CENTRAL.(WH01)**
 
-    -WH01/Materias primas.
-    -WH01 Terminados.
-    -WH01/Expediciones.
+    -WH01/Raw materials.
+    -WH01 Finished goods.
+    -WH01/Shipping.
 
-Es el almacén general de la empresa, desde donde se divide todo. Se almacenan materias primas terminados, se realizan pickings.  
+It is the company's general warehouse, from where everything is divided. Raw materials and finished goods are stored, pickings are made.  
 
-Creación de ubicaciones. Es importante decir que tipo de ubicación es.
+Location creation. It is important to say what type of location it is.
 
-Adjunto un listado de los tipos de ubicacion que hay.
-Tipos de ubicaciones en Odoo
+Attached is a list of the types of locations there are.
+Types of locations in Odoo
 
-**Interna** 
+**Internal** 
 
-    -Representa un lugar físico dentro de la empresa.
+    -Represents a physical place within the company.
 
-    Ejemplo: Materias primas, Producción, Productos terminados.
+    Example: Raw materials, Production, Finished products.
 
-    -Se usan en la mayoría de flujos (consumo, fabricación, almacenamiento).
+    -Used in most flows (consumption, manufacturing, storage).
 
-**Proveedor**
+**Vendor**
 
-    -Se usa como origen de productos cuando haces una compra.
+    -Used as the source of products when you make a purchase.
 
-    Ejemplo: “Proveedor” → MueblesCortes/Materias Primas/Recepción.
+    Example: "Vendor" → FurnitureCortes/Raw Materials/Reception.
 
-**Cliente** 
+**Customer** 
 
-    -Se usa como destino cuando haces una venta.
+    -Used as destination when you make a sale.
 
-    Ejemplo: MueblesCortes/Expediciones/Expedición → Cliente.
+    Example: FurnitureCortes/Shipping/Shipment → Customer.
 
-**Tránsito** 
+**Transit** 
 
-    -Representa mercancías en camino (entre almacenes).
+    -Represents goods in transit (between warehouses).
 
-    Ejemplo: de Almacén Central a Almacén Regional.
+    Example: from Central Warehouse to Regional Warehouse.
 
-**Devolución** 
+**Return** 
 
-    -Se usa para registrar productos devueltos.
+    -Used to register returned products.
 
-    Ejemplo: MueblesCortes/Expediciones/Devoluciones.
+    Example: FurnitureCortes/Shipping/Returns.
 
-**Inventario** 
+**Inventory** 
 
-    -Se usa en ajustes de stock (pérdidas, roturas, diferencias de inventario).
-
-
-![Captura paso 1](images/Ubicaciones.png).
-
-![Captura paso 1](images/Ubicaciones-tipo.png).
+    -Used in stock adjustments (losses, breakages, inventory differences).
 
 
-## CREACIÓN STOCK.
+![Screenshot step 1](images/Ubicaciones.png).
 
-El siguiente paso de nuestro flujo es la creacion del stock. Antes de todo vamos a crear las categorias así a la hora de definir los articulos vamos a poenr la categoría a la cual pertenecen.
-
--Dividiremos en 3 categoria: Materia prima, semielaborados, acabados.
-
-Para crear las categorias iremos en Ajustes-> Categorias del producto.
-
-![Captura paso 1](images/Categoria-producto.png).
-
-Una vez tenemos las categorias creadas, iremos al apartado de producto y pulsaremos a nuevo.
-
-Alli crearemos el articulo, le pondremos las caracteristicas que ha de tener, las unidades de medida (Se activan al lado de ubicaciones en configuración) la categoría y indicaremos en actualizar cantidad si tenemos stock inicial ya en almacén. 
-
-![Captura paso 1](images/Crear-stock.png).
-
-Por ultimo le asignaremos la ubicación inicial.(Si tiene stock)
+![Screenshot step 1](images/Ubicaciones-tipo.png).
 
 
-![Captura paso 1](images/Stock-Ubicacion.png).
+## STOCK CREATION
 
-Finalmente vemos en el stock.
+The next step in our flow is stock creation. First of all, we are going to create the categories so when defining the articles we are going to assign the category to which they belong.
 
--Los elementos que nos viene de serie por Odoo y los 3 articulos de materia prima creados Tornillo, Barniz y Madera.
+-We will divide into 3 categories: Raw material, semi-finished, finished.
 
-![Captura paso 1](images/lista-stock.png).
+To create the categories we will go to Settings-> Product categories.
+
+![Screenshot step 1](images/Categoria-producto.png).
+
+Once we have the categories created, we will go to the product section and click new.
+
+There we will create the article, we will set the characteristics it should have, the units of measure (They are activated next to locations in configuration) the category and we will indicate in update quantity if we have initial stock already in warehouse. 
+
+![Screenshot step 1](images/Crear-stock.png).
+
+Finally we will assign the initial location (if it has stock).
 
 
-**CUANDO HAYAMOS CREADO LOS PRODUCTOS VAMOS A PONER SU UBICACION EN WH01. SEGUN EL TIPO DE PRODUCTO QUE SEA IRA EN UNA UBICACIÓN U OTRA**
+![Screenshot step 1](images/Stock-Ubicacion.png).
+
+Finally we see in the stock.
+
+-The elements that come by default from Odoo and the 3 raw material articles created: Screw, Varnish and Wood.
+
+![Screenshot step 1](images/lista-stock.png).
+
+
+**WHEN WE HAVE CREATED THE PRODUCTS WE ARE GOING TO SET THEIR LOCATION IN WH01. ACCORDING TO THE TYPE OF PRODUCT IT IS, IT WILL GO IN ONE LOCATION OR ANOTHER**

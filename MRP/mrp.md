@@ -1,123 +1,123 @@
-# MRP.
+# MRP
 
-**MRP --> Es un sistema que calcula que materiales son necesarios en qué cantidades y en qué momentos para poder fabricar productos acabados**
+**MRP --> It is a system that calculates what materials are needed in what quantities and at what times to be able to manufacture finished products**
 
-## RUTAS.
+## ROUTES
 
-Antes de adentrarnos de lleno en la manufacturación de productos, tenemos que definir la parte que conecta todos nuestros modulos. Las rutas.
+Before diving fully into product manufacturing, we have to define the part that connects all our modules. The routes.
 
-**Una ruta es una regla logistica que define como se mueve un producto dentro de la empresa.**
+**A route is a logistics rule that defines how a product moves within the company.**
 
-Para activar las rutas tenemos que realizar el mismo procedimiento que con los almacenes. Hay que activar las rutas multietapas justamente al lado de almacenes.
+To activate routes we have to perform the same procedure as with warehouses. You have to activate multi-stage routes right next to warehouses.
 
-![Captura paso 1](images/Conf-rutas.png).
+![Screenshot step 1](images/Conf-rutas.png).
 
-Una vez activada la configuración, es muy importante analizar los almacenes de la empresa las rutas que hay, y hacer un esquema del proceso que seguira nuestro producto. 
+Once the configuration is activated, it is very important to analyze the company warehouses, the existing routes, and make a diagram of the process our product will follow. 
 
-Aqui dejo explicado y con un diagrama que he realizado para tener la mayor idea de la pipeline que seguira nuestro producto. 
+Here I leave explained and with a diagram that I have made to have the greatest idea of the pipeline that our product will follow. 
 
-![Captura paso 1](images/Flujo.png).
+![Screenshot step 1](images/Flujo.png).
 
-1. Materias Primas → Producción
+1. Raw Materials → Production
 
-    -Acción: Obtener desde (Pull).
-    -Origen: WH01/Materia prima.
-    -Destino: WH01/Producción.
-    📌 Permite que al lanzar una orden de producción, Odoo jale materiales desde el almacén de Materias Primas.
+    -Action: Pull from.
+    -Source: WH01/Raw materials.
+    -Destination: WH01/Production.
+    📌 Allows that when launching a production order, Odoo pulls materials from the Raw Materials warehouse.
 
-2. Producción-> Semielaborados
+2. Production → Semi-finished
 
-    -Acción: Empujar a .
-    -Origen: WH01/Producción.
-    -Destino: WH01/Semielaborados.
-    📌 Simula que las materias primas  han terminado el proceso de fabricación (semielaborados) y se les envia a su ubicación.
+    -Action: Push to.
+    -Source: WH01/Production.
+    -Destination: WH01/Semi-finished.
+    📌 Simulates that the raw materials have finished the manufacturing process (semi-finished) and are sent to their location.
 
-3. Semielaborados -> Producción 
+3. Semi-finished → Production 
 
-    -Acción: Obtener desde.
-    -Origen: WH01/Semielaborados.
-    -Destino: WH01/Producción.
-    📌 Los productos semielaborados osn llevados a producción para montar un producto acabado.
+    -Action: Pull from.
+    -Source: WH01/Semi-finished.
+    -Destination: WH01/Production.
+    📌 Semi-finished products are brought to production to assemble a finished product.
 
-4. Producción → Productos acabado
+4. Production → Finished products
 
-    -Acción: Empujar a .
-    -Origen: WH01/Producción.
-    -Destino: WH01/Producto Acabado.
-    📌 Mueve los productos terminados al almacén de terminados listos para venta.
+    -Action: Push to.
+    -Source: WH01/Production.
+    -Destination: WH01/Finished Product.
+    📌 Moves finished products to the finished goods warehouse ready for sale.
 
-5. Producto acabado → Expediciones
+5. Finished product → Shipping
 
-    -Acción: Obtener desde.
-    -Origen: WH01/Producto acabado.
-    -Destino: WH01/Expediciones.
-    📌 Mueve el producto ya vendido hacia la zona de expedición.
-
-
-**CON ESTAS RUTAS YA TENDRIAMOS EL FLUJO COMPLETO Compra → Materias Primas → Producción → Terminados → Expediciones → Cliente **
-
-![Captura paso 1](images/Creacion-ruta.png).
-
-Preparamos nuestra ruta, es super importante la parte inferior de reglas añadir linea. Se nos abrirá un formulario, donde nosotros vamos a rellenar depende del tipo de operacion y la acción que queramos hacer. 
-
-Como será un flujo la gran mayoria serán pulls Obtener desde. Excptuando el de devoluciones de clientes que será push al almacén de devoluciones.
-
-![Captura paso 1](images/ruta-definida.png).
+    -Action: Pull from.
+    -Source: WH01/Finished product.
+    -Destination: WH01/Shipping.
+    📌 Moves the already sold product towards the shipping area.
 
 
-## .BoM
+**WITH THESE ROUTES WE WOULD ALREADY HAVE THE COMPLETE FLOW Purchase → Raw Materials → Production → Finished → Shipping → Customer **
 
-Antes de adentrarnos en las ordenes de fabricación y en las ordenes de trabajo, nos vamos a centrar en el BoM. El BoM es la descomposición de un producto.
-Es decir, de los materiales que componen un producto. Menos la materia prima todos tendran un BoM. Por ejemplo, los semielaborados aunque no sean vendibles directamente. Estan compuestos por varios elementos de Materia prima.
-En nuestro caso, hemos definido las piezas barnizadas, y su BoM es un tablero cortado y 1 litro de Barníz. El tablero cortado hemos definido que se hacer mediante 5m de madera de roble para conseguir 1 metro.
+![Screenshot step 1](images/Creacion-ruta.png).
 
+We prepare our route, the lower part of rules add line is super important. A form will open, where we are going to fill in depending on the type of operation and the action we want to do. 
 
-En Fabricación -> Productos -> Lista Materiales vamos a encontrar para hacer el BoM.
+Since it will be a flow, the vast majority will be pulls "Pull from". Except for customer returns which will be push to the returns warehouse.
 
-**Hay que tener presente que todo en una industria son flujos de procesos. De la materia prima, se preparar semielaborados, estos van a ser los que compongan los productos acabados listos para la venta**
-
-![Captura paso 1](images/Creacion-bom.png).
-
-Mientras asignamos el BoM, tambien vamos a preparar las "Operaciones" que son las accioens que se realizarán en los puestos de trabajo para elaborar el material. Cuando hemos definido los materiales y la cantidad en cada BoM. Vamos a proceder a las operaciones. 
+![Screenshot step 1](images/ruta-definida.png).
 
 
-![Captura paso 1](images/Operaciones.png).
+## BOM
 
-Aqui en las operaciones vamos a definir la acción que se hace en cada lugar de trabajo y el tiempo estimado que se tarda en realizar la acción.
-
-Posteriormente en los BoMs vamos a definir que tipo de operación tiene el BoM. Es importante, ya que nos sirve para indicar si estamos fabricando un semielaborado o un producto acabado.
-En nuestra configuración del almacen, los semielaborados van en una ubicación y los productos acabados van en otra.
-
-## .MO(ORDEN FABRICACIÓN) WO(ORDEN DE TRABAJO).
-
--Las siglas MO -> significa manufacturing order -> orden de fabricación y WO -> work order -> orden de trabajo.
-
--A continuación, vamos a proceder a crear las ordenes de fabricación. En las ordenes de fabricación, más adelante vamos a enlazar con los pedidos, marcan cuantas unidades se tienen de fabricar. Más bien dicho, se pasa el pedido a la fabrica para que lo fabriquen.
-
--Primero de todo vamos a seleccionar el articulo que queremos, alli se nos va a desplegar el BoM.
-![Captura paso 1](images/MO.png).
--Siguiente paso cuando vemos que esta todo correcto es darle a confirmar. Nos va a crear un numero de secuencia en automaticamente que va a ser el numero de la orden. 
--Vamos a seleccionar los componentes y vamos a pulsar si hay disponibilidad 
-![Captura paso 1](images/MO-1.png).
-
--Una vez hemos visto que hay disponibilidad, vamos a proceder a pulsar planificar, para que se pongan en marcha las Ordenes de trabajo.
-
--Vamos a la seccion Ordenes-> Ordenes de trabajo. Y allí, vamos a ver todas las ordenes de trabajo que hay. Si pone listo como es nuestro caso, singnifica que ya estan preparados los componentes, es decir que ya estan en la ubicacion preparados para montar. Si no fuera el caso se tendría que realizar un traslado, o la ruta  no estaría bien configurada.
-
--Le damos a empezar las ordenes y veremos que empieza un contador, es una simulación del tiempo que tarda en hacerse la orden. Como antes en los centros de trabajo hemos establecido que se calcule el timepo de media en base a las ultimas 4.
-![Captura paso 1](images/OT.png).
--Le damos a listo, ya que estamos en una demo
-
-Una vez hemos terminado con las ordenes, procedemos a las ordenes de fabricación y vamos a ver que pone a cerrar. JUstamente entramos y pulsamos producir todo, así Odoo va a hacer los traslados de stock. Restar materias primas, sumar o restar productos semiterminados y/o sumar productos acabados. 
-
-![Captura paso 1](images/CerrarMO.png).
-
-**Finalmente vamos a comprobar si se ha creado el producto acabado ***
-
-![Captura paso 1](images/Comprobar.png).
+Before diving into manufacturing orders and work orders, we are going to focus on the BOM. The BOM is the breakdown of a product.
+That is, the materials that make up a product. Except for raw materials, all will have a BOM. For example, semi-finished products although they are not directly sellable. They are composed of several raw material elements.
+In our case, we have defined the varnished pieces, and their BOM is a cut board and 1 liter of varnish. The cut board we have defined is made using 5m of oak wood to get 1 meter.
 
 
-**AHORA VAMOS A VER EL SIGUIENTE PASO QUE ES LAS VENTAS, PARA PODER AUMENTAR ESTE FLUJO**
+In Manufacturing -> Products -> Bill of Materials we will find to make the BOM.
+
+**You have to keep in mind that everything in an industry are process flows. From raw material, semi-finished products are prepared, these are going to be the ones that make up the finished products ready for sale**
+
+![Screenshot step 1](images/Creacion-bom.png).
+
+While we assign the BOM, we are also going to prepare the "Operations" which are the actions that will be performed at the workstations to develop the material. When we have defined the materials and the quantity in each BOM. We are going to proceed to operations. 
+
+
+![Screenshot step 1](images/Operaciones.png).
+
+Here in operations we are going to define the action that is done in each workplace and the estimated time it takes to perform the action.
+
+Later in the BOMs we are going to define what type of operation the BOM has. It is important, as it serves us to indicate if we are manufacturing a semi-finished or a finished product.
+In our warehouse configuration, semi-finished products go in one location and finished products go in another.
+
+## MO (MANUFACTURING ORDER) WO (WORK ORDER)
+
+-The acronyms MO -> means manufacturing order and WO -> work order.
+
+-Next, we are going to proceed to create manufacturing orders. In manufacturing orders, later we are going to link with orders, they mark how many units have to be manufactured. Rather, the order is passed to the factory so they can manufacture it.
+
+-First of all we are going to select the item we want, there the BOM will be displayed.
+![Screenshot step 1](images/MO.png).
+-Next step when we see that everything is correct is to confirm it. It will create an automatic sequence number that will be the order number. 
+-We are going to select the components and we are going to check if there is availability 
+![Screenshot step 1](images/MO-1.png).
+
+-Once we have seen that there is availability, we are going to proceed to click plan, so that the Work Orders are set in motion.
+
+-We go to the Orders-> Work orders section. And there, we are going to see all the work orders that exist. If it says ready as in our case, it means that the components are already prepared, that is, they are already in the location prepared to assemble. If this were not the case, a transfer would have to be made, or the route would not be well configured.
+
+-We start the orders and we will see that a counter starts, it is a simulation of the time it takes to make the order. As before in the work centers we have established that the average time is calculated based on the last 4.
+![Screenshot step 1](images/OT.png).
+-We mark it as done, since we are in a demo
+
+Once we have finished with the orders, we proceed to the manufacturing orders and we are going to see that it says to close. We just go in and click produce all, so Odoo is going to make the stock transfers. Subtract raw materials, add or subtract semi-finished products and/or add finished products. 
+
+![Screenshot step 1](images/CerrarMO.png).
+
+**Finally we are going to check if the finished product has been created **
+
+![Screenshot step 1](images/Comprobar.png).
+
+
+**NOW WE ARE GOING TO SEE THE NEXT STEP WHICH IS SALES, TO BE ABLE TO INCREASE THIS FLOW**
 
 
 

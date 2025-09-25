@@ -50,13 +50,13 @@ Types of locations in Odoo
 
     -Used as the source of products when you make a purchase.
 
-    Ejemplo: “Proveedor” → MueblesCortes/Materias Primas/Recepción.
+    Example: "Vendor" → FurnitureCortes/Raw Materials/Reception.
 
 **Customer** 
 
     -Used as destination when you make a sale.
 
-    Ejemplo: MueblesCortes/Expediciones/Expedición → Cliente.
+    Example: FurnitureCortes/Shipping/Shipment → Customer.
 
 **Transit** 
 
@@ -68,16 +68,16 @@ Types of locations in Odoo
 
     -Used to register returned products.
 
-    Ejemplo: MueblesCortes/Expediciones/Devoluciones.
+    Example: FurnitureCortes/Shipping/Returns.
 
 **Inventory** 
 
     -Used in stock adjustments (losses, breakages, inventory differences).
 
 
-![Captura paso 1](images/Ubicaciones.png).
+![Screenshot step 1](images/Ubicaciones.png).
 
-![Captura paso 1](images/Ubicaciones-tipo.png).
+![Screenshot step 1](images/Ubicaciones-tipo.png).
 
 
 ## STOCK CREATION
